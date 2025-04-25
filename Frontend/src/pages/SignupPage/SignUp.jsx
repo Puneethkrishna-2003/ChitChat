@@ -1,7 +1,51 @@
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 export default function SignUp() {
+    const [formInputs, setFormInputs] = useState({
+        userName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        validateForm(formInputs);
+        setFormInputs({
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        });
+    };
+
+    const handleFormDataChange = (e) => {
+        const { name, value } = e.target;
+        setFormInputs((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const validateForm = (formData) => {
+        const { userName, email, password, confirmPassword } = formData;
+
+        if (!userName || !email || !password || !confirmPassword) {
+            alert("All fields are required!");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false;
+        }
+        
+        alert("Form submitted successfully!");
+        return true;
+    };
+
     return (
         <div className="justify-center items-center flex h-dvh bg-neutral-50">
             <div className="p-5 border-gray-200 border-1 rounded-md w-sm bg-white gap-1 mb-3  flex flex-col">
@@ -20,18 +64,47 @@ export default function SignUp() {
                 </p>
                 <form action="" className="gap-2 flex flex-col">
                     <label htmlFor="">User Name</label>
-                    <Input className={""} type={"text"} required placeholder={"Enter your name"}/>
-                    <label htmlFor="">Email</label>
-                    <Input type={"email"} required placeholder={"example@gmail.com"}/>
-                    <label htmlFor="">Password</label>
-                    <Input type={"Password"} required />
-                    <label htmlFor="">Confirm Password</label>
-                    <Input type={"Password"} required />
                     <Input
-                        type={"submit"}
-                        className={
-                            "bg-purple-700 text-white cursor-pointer hover:bg-purple-800 transition-all"
-                        }
+                        type="text"
+                        required
+                        placeholder="Enter your name"
+                        name="userName"
+                        value={formInputs.userName}
+                        onChange={handleFormDataChange}
+                    />
+                    <label htmlFor="">Email</label>
+
+                    <Input
+                        type="email"
+                        required
+                        placeholder="example@gmail.com"
+                        name="email"
+                        value={formInputs.email}
+                        onChange={handleFormDataChange}
+                    />
+                    <label htmlFor="">Password</label>
+                    <Input
+                        type="password"
+                        required
+                        placeholder="Enter your password"
+                        name="password"
+                        value={formInputs.password}
+                        onChange={handleFormDataChange}
+                    />
+                    <label htmlFor="">Confirm Password</label>
+                    <Input
+                        type="password"
+                        required
+                        placeholder="Confirm password"
+                        name="confirmPassword"
+                        value={formInputs.confirmPassword}
+                        onChange={handleFormDataChange}
+                    />
+                    <Input
+                        type="submit"
+                        value="Sign Up"
+                        onClick={submitForm}
+                        className="bg-purple-700 text-white cursor-pointer hover:bg-purple-800 transition-all"
                     />
                     <p className="text-center">
                         Already have an account?{" "}
