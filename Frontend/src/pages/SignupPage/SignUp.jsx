@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+
 export default function SignUp() {
     const [formInputs, setFormInputs] = useState({
         userName: "",
@@ -13,6 +14,7 @@ export default function SignUp() {
     const submitForm = (e) => {
         e.preventDefault();
         validateForm(formInputs);
+
         setFormInputs({
             userName: "",
             email: "",
