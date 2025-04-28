@@ -3,7 +3,7 @@ import { useState } from "react";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
-export default function SignUp() {
+export default function SignUpPage() {
     const [formInputs, setFormInputs] = useState({
         userName: "",
         email: "",

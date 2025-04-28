@@ -1,15 +1,15 @@
 import { createRoot } from 'react-dom/client'
-import Landing from './pages/LandingPage/Landing'
+import LandingPage from './pages/LandingPage/LandingPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import SignUp from './pages/SignupPage/SignUp'
-import SignIn from './pages/SigninPage/SignIn'
+import SignupPage from './pages/SignupPage/SignUpPage'
+import SigninPage from './pages/SigninPage/SignInPage'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Landing/>}></Route>
-      <Route path='/signin' element={<SignIn/>}></Route>
-      <Route path='/signup' element={<SignUp/>}></Route>
+      <Route path='/' element={<LandingPage/>}></Route>
+      <Route path='/signin' element={<SigninPage/>}></Route>
+      <Route path='/signup' element={<SignupPage/>}></Route>
     </Routes>
   </BrowserRouter>,
 )

@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
-export default function SignIn() {
+export default function SignInPage() {
 
 
     return (

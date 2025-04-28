@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
-export default function Landing() {
+export default function LandingPage() {
     return (
         <div className="flex flex-col ">
             <NavBar />
