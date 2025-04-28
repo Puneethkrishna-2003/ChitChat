@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import Landing from './pages/LandingPage/landing'
+import Landing from './pages/LandingPage/Landing'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SignUp from './pages/SignupPage/SignUp'
 import SignIn from './pages/SigninPage/SignIn'

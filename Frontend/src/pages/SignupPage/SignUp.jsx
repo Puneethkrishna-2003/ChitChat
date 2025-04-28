@@ -11,16 +11,24 @@ export default function SignUp() {
         confirmPassword: "",
     });
 
+    const [errorFormInputs, setErrorFormInputs] = useState({
+        userName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+
     const submitForm = (e) => {
         e.preventDefault();
         validateForm(formInputs);
-
-        setFormInputs({
-            userName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-        });
+        if (validateForm) {
+            setFormInputs({
+                userName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+            });
+        }
     };
 
     const handleFormDataChange = (e) => {
@@ -29,22 +37,30 @@ export default function SignUp() {
             ...prev,
             [name]: value,
         }));
+        setErrorFormInputs((prev) => ({
+            ...prev,
+            [name]: "",
+        }));
     };
 
     const validateForm = (formData) => {
         const { userName, email, password, confirmPassword } = formData;
 
         if (!userName || !email || !password || !confirmPassword) {
-            alert("All fields are required!");
+            setErrorFormInputs({
+                userName: "required",
+                email: "required",
+                password: "required",
+                confirmPassword: "required",
+            });
             return false;
         }
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            setErrorFormInputs({ confirmPassword: "Passwords do not match!" });
             return false;
         }
-        
-        alert("Form submitted successfully!");
+
         return true;
     };
 
@@ -66,42 +82,72 @@ export default function SignUp() {
                 </p>
                 <form action="" className="gap-2 flex flex-col">
                     <label htmlFor="">User Name</label>
-                    <Input
-                        type="text"
-                        required
-                        placeholder="Enter your name"
-                        name="userName"
-                        value={formInputs.userName}
-                        onChange={handleFormDataChange}
-                    />
+                    <div>
+                        <Input
+                            type="text"
+                            required
+                            placeholder="Enter your name"
+                            name="userName"
+                            value={formInputs.userName}
+                            onChange={handleFormDataChange}
+                        />
+                        {errorFormInputs.userName && (
+                            <span className="text-red-500 text-sm">
+                                {errorFormInputs.userName}
+                            </span>
+                        )}
+                    </div>
                     <label htmlFor="">Email</label>
+                    <div>
+                        <Input
+                            type="email"
+                            required
+                            placeholder="example@gmail.com"
+                            name="email"
+                            value={formInputs.email}
+                            onChange={handleFormDataChange}
+                        />
+                        {errorFormInputs.email && (
+                            <span className="text-red-500 text-sm">
+                                {errorFormInputs.email}
+                            </span>
+                        )}
+                    </div>
 
-                    <Input
-                        type="email"
-                        required
-                        placeholder="example@gmail.com"
-                        name="email"
-                        value={formInputs.email}
-                        onChange={handleFormDataChange}
-                    />
                     <label htmlFor="">Password</label>
-                    <Input
-                        type="password"
-                        required
-                        placeholder="Enter your password"
-                        name="password"
-                        value={formInputs.password}
-                        onChange={handleFormDataChange}
-                    />
+                    <div>
+                        <Input
+                            type="password"
+                            required
+                            placeholder="Enter your password"
+                            name="password"
+                            value={formInputs.password}
+                            onChange={handleFormDataChange}
+                        />
+                        {errorFormInputs.password && (
+                            <span className="text-red-500 text-sm">
+                                {errorFormInputs.password}
+                            </span>
+                        )}
+                    </div>
+
                     <label htmlFor="">Confirm Password</label>
-                    <Input
-                        type="password"
-                        required
-                        placeholder="Confirm password"
-                        name="confirmPassword"
-                        value={formInputs.confirmPassword}
-                        onChange={handleFormDataChange}
-                    />
+                    <div>
+                        <Input
+                            type="password"
+                            required
+                            placeholder="Confirm password"
+                            name="confirmPassword"
+                            value={formInputs.confirmPassword}
+                            onChange={handleFormDataChange}
+                        />
+                        {errorFormInputs.confirmPassword && (
+                            <span className="text-red-500 text-sm">
+                                {errorFormInputs.confirmPassword}
+                            </span>
+                        )}
+                    </div>
+
                     <Input
                         type="submit"
                         value="Sign Up"
