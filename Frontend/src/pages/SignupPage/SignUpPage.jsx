@@ -20,8 +20,8 @@ export default function SignUpPage() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        validateForm(formInputs);
-        if (validateForm) {
+        const isValid = validateForm(formInputs);
+        if (isValid) {
             setFormInputs({
                 userName: "",
                 email: "",
@@ -55,12 +55,21 @@ export default function SignUpPage() {
             });
             return false;
         }
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            setErrorFormInputs({
+                password:
+                    "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number and one special character.",
+            });
+            return false;
+        }
 
         if (password !== confirmPassword) {
             setErrorFormInputs({ confirmPassword: "Passwords do not match!" });
             return false;
         }
-
+        
         return true;
     };
 
