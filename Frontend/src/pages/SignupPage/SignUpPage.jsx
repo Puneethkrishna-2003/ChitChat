@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input";
+import axios from "axios";
 import { useState } from "react";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
 
 export default function SignUpPage() {
     const [formInputs, setFormInputs] = useState({
@@ -18,9 +19,29 @@ export default function SignUpPage() {
         confirmPassword: "",
     });
 
+    const navigate = useNavigate()
     const submitForm = (e) => {
         e.preventDefault();
         const isValid = validateForm(formInputs);
+        if (isValid) {
+            try {
+                const response = axios.post(
+                    "http://localhost:4000/api/auth/signup",
+                    {
+                        username: formInputs.userName,
+                        email: formInputs.email,
+                        password: formInputs.password,
+                        confirmpassword: formInputs.confirmPassword,
+                    }
+                );
+                console.log(response.data);
+                
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         if (isValid) {
             setFormInputs({
                 userName: "",
@@ -28,6 +49,8 @@ export default function SignUpPage() {
                 password: "",
                 confirmPassword: "",
             });
+
+            navigate("/home")
         }
     };
 
@@ -69,7 +92,7 @@ export default function SignUpPage() {
             setErrorFormInputs({ confirmPassword: "Passwords do not match!" });
             return false;
         }
-        
+
         return true;
     };
 
